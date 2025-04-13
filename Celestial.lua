@@ -22,30 +22,26 @@ local CreditsTab = Window:CreateTab("Credits 👑", nil)
 
 -- AutoFarm Script
 local function startAutoFarm()
-    local monsterList = {
-        ["Aevrul"] = true, ["Baby Scarab"] = true, ["Baby Shroom"] = true, ["Baby Slime"] = true, ["Baby Yeti"] = true,
-        ["Baby Yeti Tribute"] = true, ["Bamboo Mage"] = true, ["Bandit"] = true, ["Bandit Skirmisher"] = true,
-        ["Battering Shroom"] = true, ["Batty"] = true, ["Bear"] = true, ["Big Slime"] = true, ["Birthday Mage"] = true,
-        ["Boar"] = true, ["Book"] = true, ["Bushi"] = true, ["Chad"] = true, ["Chicken"] = true, ["Crabby"] = true,
-        ["Crow"] = true, ["Cultist"] = true, ["Dark Cleric"] = true, ["Deathsting"] = true, ["Dragon Boss"] = true,
-        ["Dragon Monk"] = true, ["Dummy"] = true, ["Dustwurm"] = true, ["Eldering Shroom"] = true, ["Elder Shroom"] = true,
-        ["Enchanted Slime"] = true, ["Enchiridion"] = true, ["Ent Sapling"] = true, ["Ethera"] = true, ["Ethereal Monarch"] = true,
-        ["Frightcrow"] = true, ["Fish"] = true, ["First Mate"] = true, ["Fly Trap"] = true, ["Gauntlet Gate"] = true,
-        ["Gecko"] = true, ["Goblin"] = true, ["Gorgog Guardian"] = true, ["Guardian"] = true, ["Guardian Dummy"] = true,
-        ["Hag"] = true, ["Hermit Crabby"] = true, ["Hitbox"] = true, ["Hog"] = true, ["Horseshoe Crab"] = true,
-        ["Humanoid"] = true, ["Jellyfish"] = true, ["Kobra"] = true, ["Lil Shroomie Cage"] = true, ["Lobster"] = true,
-        ["Lost Spirit"] = true, ["Mama Hermit Crabby"] = true, ["Master Miyamoto"] = true, ["Mimic Jester"] = true,
-        ["Miner Prisoner"] = true, ["Mo Ko Tu Aa"] = true, ["Mogloko"] = true, ["Moglo"] = true, ["Monster"] = true,
-        ["Mosquito Parasite"] = true, ["Mummy"] = true, ["Orc"] = true, ["Parasite"] = true, ["Parasite Host"] = true,
-        ["Pirate"] = true, ["Pirate Captain"] = true, ["Pirate Summon"] = true, ["Pit Ratty"] = true, ["Possum the Devourer"] = true,
-        ["Prisoner"] = true, ["Ram"] = true, ["Ratty"] = true, ["Reanimated Slime"] = true, ["Reaper"] = true,
-        ["Redwood Bandit"] = true, ["Redwood Bandit Leader"] = true, ["Rock Slime"] = true, ["Rootbeard"] = true,
-        ["Rubee"] = true, ["Runic Titan"] = true, ["Samurai"] = true, ["Scarab"] = true, ["Scarecrow"] = true,
-        ["Sensei"] = true, ["Shade"] = true, ["Shaman"] = true, ["Shinobi"] = true, ["Shroom"] = true,
-        ["Skeleton"] = true, ["Skull Boss"] = true, ["Slime"] = true, ["Snel"] = true, ["Soulcage"] = true,
-        ["Spider"] = true, ["Spider Queen"] = true, ["Spiderling"] = true, ["Stingtail"] = true, ["Sunken Savage"] = true,
-        ["Terror of the Deep"] = true, ["The Yeti"] = true, ["Toni"] = true, ["Tortoise"] = true, ["Treemuk"] = true,
-        ["Tribute Gate"] = true, ["Trickster Spirit"] = true, ["Tumbleweed"] = true, ["Undead"] = true, ["Wisp"] = true
+    local monsterList = { 
+        "Aevrul", "Baby Scarab", "Baby Shroom", "Baby Slime", "Baby Yeti", "Baby Yeti Tribute",
+        "Bamboo Mage", "Bandit", "Bandit Skirmisher", "Battering Shroom", "Batty", "Bear",
+        "Big Slime", "Birthday Mage", "Boar", "Book", "Bushi", "Chad", "Chicken", "Crabby",
+        "Crow", "Cultist", "Dark Cleric", "Deathsting", "Dragon Boss", "Dragon Monk", "Dummy",
+        "Dustwurm", "Eldering Shroom", "Elder Shroom", "Enchanted Slime", "Enchiridion",
+        "Ent Sapling", "Ethera", "Ethereal Monarch", "Frightcrow", "Fish", "First Mate",
+        "Fly Trap", "Gauntlet Gate", "Gecko", "Goblin", "Gorgog Guardian", "Guardian",
+        "Guardian Dummy", "Hag", "Hermit Crabby", "Hitbox", "Hog", "Horseshoe Crab", "Humanoid",
+        "Jellyfish", "Kobra", "Lil Shroomie Cage", "Lobster", "Lost Spirit", "Mama Hermit Crabby",
+        "Master Miyamoto", "Mimic Jester", "Miner Prisoner", "Mo Ko Tu Aa", "Mogloko", "Moglo",
+        "Monster", "Mosquito Parasite", "Mummy", "Orc", "Parasite", "Parasite Host",
+        "Pirate", "Pirate Captain", "Pirate Summon", "Pit Ratty", "Possum the Devourer",
+        "Prisoner", "Ram", "Ratty", "Reanimated Slime", "Reaper", "Redwood Bandit",
+        "Redwood Bandit Leader", "Rock Slime", "Rootbeard", "Rubee", "Runic Titan",
+        "Samurai", "Scarab", "Scarecrow", "Sensei", "Shade", "Shaman", "Shinobi", "Shroom",
+        "Skeleton", "Skull Boss", "Slime", "Snel", "Soulcage", "Spider", "Spider Queen",
+        "Spiderling", "Stingtail", "Sunken Savage", "Terror of the Deep", "The Yeti",
+        "Toni", "Tortoise", "Treemuk", "Tribute Gate", "Trickster Spirit", "Tumbleweed",
+        "Undead", "Wisp"
     }
 
     local folder = workspace.placeFolders.entityManifestCollection
@@ -58,8 +54,10 @@ local function startAutoFarm()
     local function processParts()
         for _, part in pairs(folder:GetDescendants()) do
             if part:IsA("BasePart") and shouldModify(part) then
-                part.Size = newSize
-                part.CanCollide = false
+                if part.Size ~= newSize then 
+                    part.Size = newSize
+                end
+                part.CanCollide = false 
             end
         end
     end
@@ -68,18 +66,42 @@ local function startAutoFarm()
 
     folder.DescendantAdded:Connect(function(descendant)
         if AutoFarmEnabled and descendant:IsA("BasePart") and shouldModify(descendant) then
-            descendant.Size = newSize
+            if descendant.Size ~= newSize then
+                descendant.Size = newSize
+            end
             descendant.CanCollide = false
         end
     end)
 end
 
+local function stopAutoFarm()
+    -- Detener AutoFarm al desactivar el toggle
+    AutoFarmEnabled = false
+    -- Aquí puedes añadir cualquier lógica para detener el AutoFarm si es necesario
+end
+
 -- ESP Script
 local function startESP()
     local nombresValidos = {
-        -- (mismos nombres válidos que el AutoFarm, ya están arriba)
-        ["Dummy"] = true, ["Goblin"] = true, ["Shroom"] = true, ["Crabby"] = true, ["Batty"] = true,
-        -- y todos los demás ya incluidos arriba...
+        "Aevrul", "Baby Scarab", "Baby Shroom", "Baby Slime", "Baby Yeti", "Baby Yeti Tribute",
+        "Bamboo Mage", "Bandit", "Bandit Skirmisher", "Battering Shroom", "Batty", "Bear",
+        "Big Slime", "Birthday Mage", "Boar", "Book", "Bushi", "Chad", "Chicken", "Crabby",
+        "Crow", "Cultist", "Dark Cleric", "Deathsting", "Dragon Boss", "Dragon Monk", "Dummy",
+        "Dustwurm", "Eldering Shroom", "Elder Shroom", "Enchanted Slime", "Enchiridion",
+        "Ent Sapling", "Ethera", "Ethereal Monarch", "Frightcrow", "Fish", "First Mate",
+        "Fly Trap", "Gauntlet Gate", "Gecko", "Goblin", "Gorgog Guardian", "Guardian",
+        "Guardian Dummy", "Hag", "Hermit Crabby", "Hitbox", "Hog", "Horseshoe Crab", "Humanoid",
+        "Jellyfish", "Kobra", "Lil Shroomie Cage", "Lobster", "Lost Spirit", "Mama Hermit Crabby",
+        "Master Miyamoto", "Mimic Jester", "Miner Prisoner", "Mo Ko Tu Aa", "Mogloko", "Moglo",
+        "Monster", "Mosquito Parasite", "Mummy", "Orc", "Parasite", "Parasite Host",
+        "Pirate", "Pirate Captain", "Pirate Summon", "Pit Ratty", "Possum the Devourer",
+        "Prisoner", "Ram", "Ratty", "Reanimated Slime", "Reaper", "Redwood Bandit",
+        "Redwood Bandit Leader", "Rock Slime", "Rootbeard", "Rubee", "Runic Titan",
+        "Samurai", "Scarab", "Scarecrow", "Sensei", "Shade", "Shaman", "Shinobi", "Shroom",
+        "Skeleton", "Skull Boss", "Slime", "Snel", "Soulcage", "Spider", "Spider Queen",
+        "Spiderling", "Stingtail", "Sunken Savage", "Terror of the Deep", "The Yeti",
+        "Toni", "Tortoise", "Treemuk", "Tribute Gate", "Trickster Spirit", "Tumbleweed",
+        "Undead", "Wisp"
     }
 
     local folder = workspace:WaitForChild("placeFolders"):WaitForChild("entityManifestCollection")
@@ -115,6 +137,12 @@ local function startESP()
     folder.DescendantAdded:Connect(crearNombreLabel)
 end
 
+local function stopESP()
+    -- Detener ESP al desactivar el toggle
+    ESPEnabled = false
+    -- Aquí puedes añadir cualquier lógica para detener el ESP si es necesario
+end
+
 -- 🔘 Toggles
 MainTab:CreateToggle({
     Name = "Auto Farm Mobs",
@@ -124,6 +152,8 @@ MainTab:CreateToggle({
         AutoFarmEnabled = Value
         if AutoFarmEnabled then
             startAutoFarm()
+        else
+            stopAutoFarm() -- Detener el AutoFarm cuando esté en "off"
         end
     end,
 })
@@ -136,26 +166,11 @@ MainTab:CreateToggle({
         ESPEnabled = Value
         if ESPEnabled then
             startESP()
+        else
+            stopESP() -- Detener el ESP cuando esté en "off"
         end
     end,
 })
 
 -- 📌 Créditos
-CreditsTab:CreateParagraph({
-    Title = "🎩 Script Info",
-    Content = "This script was made by these two legends: sxbxs.19 & andresitoulol. Join the Discord to meet us!"
-})
-
-CreditsTab:CreateButton({
-    Name = "Unirse al Discord",
-    Callback = function()
-        pcall(function()
-            setclipboard("https://discord.gg/c3jdEgr7b6")
-            Rayfield:Notify({
-                Title = "Enlace copiado",
-                Content = "¡Pega esto en tu navegador para unirte!",
-                Duration = 5
-            })
-        end)
-    end,
-})
+CreditsTab:CreateParagraph
