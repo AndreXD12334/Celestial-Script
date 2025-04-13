@@ -1,4 +1,11 @@
-local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+local RayfieldSuccess, Rayfield = pcall(function()
+    return loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+end)
+
+if not RayfieldSuccess then
+    warn("No se pudo cargar Rayfield. Asegúrate de que la URL es correcta.")
+    return
+end
 
 -- Estado para los toggles
 local AutoFarmEnabled = false
